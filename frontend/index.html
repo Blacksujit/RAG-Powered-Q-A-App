@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Technical Q&A App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Ask a Question</h1>
+    <input type="text" id="query" placeholder="Type your question here...">
+    <button onclick="askQuestion()">Ask</button>
+    <h2>Answer:</h2>
+    <p id="answer"></p>
+
+    <script>
+        async function askQuestion() {
+            const query = document.getElementById('query').value;
+            const response = await fetch("http://127.0.0.1:8000/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ query })
+            });
+            const data = await response.json();
+            document.getElementById('answer').innerText = data.answer;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[
+    {
+        "content": "Django is a high-level Python Web framework that encourages rapid development."
+    },
+    {
+        "content": "Flask is a microframework for Python based on Werkzeug and Jinja2."
+    },
+    {
+        "content":"This is the first RAG_QA_App applcaition of Mine."
+    }
+]

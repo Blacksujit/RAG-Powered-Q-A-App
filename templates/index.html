@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Q&A System</title>
+</head>
+<body>
+    <h1>Ask Your Technical Question</h1>
+    <form id="questionForm">
+        <label for="question">Question:</label><br>
+        <input type="text" id="question" name="question"><br><br>
+        <button type="submit">Get Answer</button>
+    </form>
+    <h3>Answer:</h3>
+    <p id="answer"></p>
+    <h3>Retrieved Documents:</h3>
+    <ul id="documents"></ul>
+
+    <script>
+        document.getElementById('questionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const question = document.getElementById('question').value;
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `question=${encodeURIComponent(question)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('answer').textContent = data.answer || "No answer found.";
+                const docList = document.getElementById('documents');
+                docList.innerHTML = '';
+                data.documents.forEach(doc => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = doc;
+                    docList.appendChild(listItem);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
